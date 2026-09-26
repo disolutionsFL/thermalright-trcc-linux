@@ -1,0 +1,32 @@
+[Unit]
+# trccd for HEADLESS machines -- servers / render boxes that boot to
+# multi-user.target with no desktop login. Variant of trccd.service, which is
+# PartOf/After graphical-session.target and so never starts on such a box.
+#
+# USER unit. Install:
+#     mkdir -p ~/.config/systemd/user
+#     cp trccd-headless.service ~/.config/systemd/user/trccd.service
+#     sudo loginctl enable-linger "$USER"      # start at boot, nobody logged in
+#     systemctl --user daemon-reload
+#     systemctl --user enable --now trccd.service
+#
+# ExecStart assumes a pipx/pip install (~/.local/bin/trcc); use /usr/bin/trcc
+# for the native packages. See README.md "Headless machines" for the two things
+# this unit does NOT do for you: restoring the theme after a restart, and
+# keeping other trcc clients from racing the daemon's startup.
+Description=TRCC Linux background service (headless)
+Documentation=https://github.com/Lexonight1/thermalright-trcc-linux
+# The device is often not enumerated yet at boot; retry forever rather than
+# tripping the start-rate limit.
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/trcc daemon
+# No display server: Qt renders offscreen.
+Environment=QT_QPA_PLATFORM=offscreen
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
