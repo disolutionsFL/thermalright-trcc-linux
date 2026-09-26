@@ -124,7 +124,7 @@ All of these were hit for real setting this up.
   `trccd` keeps the USB panel. Every command then "succeeds" against a daemon with no screen:
   `overlay-list` shows your change, the panel never does, the preview says `Not attached`. Every
   script and unit here waits for `$XDG_RUNTIME_DIR/trcc.sock` first (`wait-for-trccd.sh`). Check:
-  `pgrep -fc "[t]rcc daemon"` must be `1`, and that PID must equal
+  `pgrep -fc "[t]rcc daemon$"` (anchored with `$` so it doesn't also count `trcc daemon-status` or any command line that merely contains the words) must be `1`, and that PID must equal
   `systemctl --user show -p MainPID --value trccd`.
 - **`overlay-list` is not proof the panel changed** -- it reads settings. Ground truth is
   `/screen.png` (or your eyes).

@@ -43,7 +43,7 @@ systemctl --user restart trccd.service
 systemctl --user restart trcc-api.service lcd-watcher.service
 sleep 3
 systemctl --user --no-pager --lines=0 status trccd trcc-api lcd-watcher | grep -E "●|Active:" || true
-echo "daemons running: $(pgrep -fc '[t]rcc daemon') (must be 1)"
+echo "daemons running: $(pgrep -fc '[t]rcc daemon$') (must be 1)"
 echo
 echo "Next, if this rig has no theme yet:  ~/lcd/make-theme.sh MYRIG"
 echo "then set device + theme_dir in ~/lcd/lcd.json and: systemctl --user restart lcd-watcher"

@@ -141,7 +141,7 @@ job at boot -- you end up with **two daemons**: the spawned one takes the socket
 USB panel. Every command then "succeeds" against a daemon with no screen: `overlay-list` shows
 your change, the panel never does, and the preview route says `Not attached`.
 
-Check: `pgrep -fc "[t]rcc daemon"` must print `1`, and that PID must equal
+Check: `pgrep -fc "[t]rcc daemon$"` (anchored with `$` so it doesn't also count `trcc daemon-status` or any command line that merely contains the words) must print `1`, and that PID must equal
 `systemctl --user show -p MainPID --value trccd`. Avoid it by waiting for
 `$XDG_RUNTIME_DIR/trcc.sock` to exist before starting **any** client (the loop in the script above),
 and give companion units `After=trccd.service` plus an `ExecStartPre` that does the same wait.
