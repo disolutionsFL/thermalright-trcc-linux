@@ -1,0 +1,29 @@
+{
+  "device": "0416:5302",
+  "theme_dir": "~/.trcc-user/data/theme320240/myrig",
+  "interval": 2,
+  "hysteresis": 2,
+  "resync_seconds": 60,
+  "cpu": {
+    "element": "cpu_t",
+    "bands": [[0, "#3ddc4a"], [60, "#ffd400"], [75, "#ff8c00"], [85, "#ff3030"]]
+  },
+  "gpu": {
+    "element": "g{n}_t",
+    "bands": [[0, "#3ddc4a"], [60, "#ffd400"], [75, "#ff8c00"], [83, "#ff3030"]]
+  },
+  "jobs": {
+    "element": "g{n}_j",
+    "host": "127.0.0.1",
+    "ports": {"0": 8188, "1": 8189, "2": 8190},
+    "max_chars": 31,
+    "left_justify": true,
+    "idle_text": "idle",
+    "offline_text": "comfyui down"
+  },
+  "api": {
+    "bind": "127.0.0.1",
+    "port": 8795,
+    "trcc_api_port": 8787
+  }
+}

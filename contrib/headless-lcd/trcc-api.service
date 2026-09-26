@@ -1,0 +1,21 @@
+[Unit]
+# trcc's own REST API, bound to LOCALHOST ONLY. lcd_watcher's read-only status API
+# proxies /screen.png from its /display/preview route; the device-control endpoints
+# here must never be exposed. USER unit, installed by install.sh.
+Description=TRCC REST API (localhost, for LCD screen previews)
+After=trccd.service
+Wants=trccd.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Environment=TRCC_DAEMON=1
+Environment=QT_QPA_PLATFORM=offscreen
+# Never start a trcc client before trccd's socket exists (two-daemon trap).
+ExecStartPre=%h/lcd/wait-for-trccd.sh
+ExecStart=%h/.local/bin/trcc serve --host 127.0.0.1 --port 8787
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,16 @@
+[Unit]
+# headless-lcd watcher: temperature colour bands, per-GPU ComfyUI job lines and the
+# read-only status API. USER unit, installed by install.sh. See README.md.
+Description=headless-lcd watcher (colour bands, job lines, status API)
+After=trccd.service
+Wants=trccd.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 %h/lcd/lcd_watcher.py --config %h/lcd/lcd.json
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

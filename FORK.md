@@ -5,13 +5,15 @@
 kept for running Thermalright cooler LCDs on **headless** Linux machines (no desktop login),
 driven from the CLI/daemon rather than the GUI.
 
-Everything upstream documents still applies. This fork adds only:
+Everything upstream documents still applies. This fork adds only the following -- `src/trcc` is
+unchanged, so upstream merges stay clean:
 
 | Change | Where | Status |
 |---|---|---|
 | Headless variant of the daemon unit | `packaging/systemd/trccd-headless.service` | in use |
 | "Headless machines" guide: linger, theme restore after restart, the two-daemon startup race, remote preview | `packaging/systemd/README.md` | in use |
 | Socket name fix in the systemd README (`trcc.sock`, not `trcc-linux.sock`) | `packaging/systemd/README.md` | verified on Linux |
+| **headless-lcd**: live status screen (name, CPU/GPU temps coloured by band, per-GPU ComfyUI job lines) + read-only status API, with a one-command layout builder and installer | [`contrib/headless-lcd/`](contrib/headless-lcd/README.md) | in use |
 
 Planned, and intended to be offered upstream as PRs rather than kept as fork-only divergence:
 

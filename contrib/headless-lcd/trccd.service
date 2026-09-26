@@ -1,0 +1,19 @@
+[Unit]
+# trcc daemon for headless-lcd: packaging/systemd/trccd-headless.service plus the
+# theme-restore hook. USER unit, installed by install.sh (which also enables
+# linger so it starts at boot with nobody logged in).
+Description=TRCC cooler LCD daemon (headless)
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/trcc daemon
+Environment=QT_QPA_PLATFORM=offscreen
+Restart=always
+RestartSec=5
+# Upstream daemon does not restore the last theme headless -- load it once up.
+ExecStartPost=%h/lcd/load-theme.sh
+TimeoutStartSec=120
+
+[Install]
+WantedBy=default.target
